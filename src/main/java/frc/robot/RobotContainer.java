@@ -12,7 +12,9 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import frc.robot.commands.TankDrive;
 import frc.robot.constants.Constants;
+import frc.robot.subsystems.DriveTrain;
 import frc.vitruvianlib.utils.JoystickWrapper;
 import frc.vitruvianlib.utils.XBoxTrigger;
 
@@ -25,6 +27,8 @@ import frc.vitruvianlib.utils.XBoxTrigger;
  */
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
+    private final DriveTrain m_driveTrain = new DriveTrain();
+
     static final JoystickWrapper leftJoystick = new JoystickWrapper(Constants.leftJoystick);
     static final JoystickWrapper rightJoystick = new JoystickWrapper(Constants.rightJoystick);
     static final JoystickWrapper xBoxController = new JoystickWrapper(Constants.xBoxController);
@@ -55,6 +59,8 @@ public class RobotContainer {
     }
 
     public void initializeSubsystems() {
+        m_driveTrain.setDefaultCommand(
+                new TankDrive(m_driveTrain, leftJoystick.getRawAxis(1), rightJoystick.getRawAxis(1)));
     }
 
     /**
