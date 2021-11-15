@@ -23,6 +23,8 @@ public class TankDrive extends CommandBase {
      */
     public TankDrive(DriveTrain driveTrain, double leftOutput, double rightOutput) {
         m_driveTrain = driveTrain;
+        this.leftOutput = leftOutput;
+        this.rightOutput = rightOutput;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(driveTrain);
     }
