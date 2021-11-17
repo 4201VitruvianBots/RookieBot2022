@@ -60,7 +60,7 @@ public class RobotContainer {
 
     public void initializeSubsystems() {
         m_driveTrain.setDefaultCommand(
-            new TankDrive(m_driveTrain, 0.1, 0.1)
+            new TankDrive(m_driveTrain, leftJoystick.getRawAxis(1), rightJoystick.getRawAxis(1))
         );
     }
 
