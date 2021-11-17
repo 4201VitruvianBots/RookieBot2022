@@ -29,8 +29,8 @@ public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private final DriveTrain m_driveTrain = new DriveTrain();
 
-    static final JoystickWrapper leftJoystick = new JoystickWrapper(Constants.leftJoystick);
-    static final JoystickWrapper rightJoystick = new JoystickWrapper(Constants.rightJoystick);
+    public static final JoystickWrapper leftJoystick = new JoystickWrapper(Constants.leftJoystick);
+    public static final JoystickWrapper rightJoystick = new JoystickWrapper(Constants.rightJoystick);
     static final JoystickWrapper xBoxController = new JoystickWrapper(Constants.xBoxController);
     static JoystickWrapper testController = new JoystickWrapper(4);
     private static boolean init = false;
@@ -60,7 +60,7 @@ public class RobotContainer {
 
     public void initializeSubsystems() {
         m_driveTrain.setDefaultCommand(
-            new TankDrive(m_driveTrain, leftJoystick.getRawAxis(1), rightJoystick.getRawAxis(1))
+            new TankDrive(m_driveTrain)
         );
     }
 

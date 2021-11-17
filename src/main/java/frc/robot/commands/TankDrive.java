@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
 
@@ -12,19 +13,16 @@ import frc.robot.subsystems.ExampleSubsystem;
  * An example command that uses an example subsystem.
  */
 public class TankDrive extends CommandBase {
-    @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+    @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
     private final DriveTrain m_driveTrain;
-    private final double leftOutput, rightOutput;
 
     /**
      * Creates a new TankDrive.
      *
      * @param subsystem The subsystem used by this command.
      */
-    public TankDrive(DriveTrain driveTrain, double leftOutput, double rightOutput) {
+    public TankDrive(DriveTrain driveTrain) {
         m_driveTrain = driveTrain;
-        this.leftOutput = leftOutput;
-        this.rightOutput = rightOutput;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(driveTrain);
     }
@@ -37,7 +35,8 @@ public class TankDrive extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_driveTrain.setMotorTankDrive(leftOutput, rightOutput);
+        m_driveTrain.setMotorTankDrive(RobotContainer.leftJoystick.getRawAxis(1),
+                RobotContainer.rightJoystick.getRawAxis(1));
     }
 
     // Called once the command ends or is interrupted.
