@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboardTab;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.util.Units;
@@ -42,7 +41,7 @@ public class VitruvianRamseteCommand extends RamseteCommand {
         m_finalPose = m_trajectory.getStates().get(trajectorySize).poseMeters;
     }
 
-    @Override
+	@Override
     public void initialize() {
         super.initialize();
         autoStartTime = Timer.getFPGATimestamp();
@@ -52,7 +51,6 @@ public class VitruvianRamseteCommand extends RamseteCommand {
     @Override
     public void execute() {
         super.execute();
-        SmartDashboardTab.putNumber("DriveTrain", "Velocity", Units.metersToFeet(m_driveTrain.getDriveTrainKinematics().toChassisSpeeds(m_driveTrain.getSpeeds()).vxMetersPerSecond));
     }
 
 //    @Override
@@ -71,6 +69,5 @@ public class VitruvianRamseteCommand extends RamseteCommand {
     @Override
     public void end(boolean interrupted) {
         super.end(interrupted);
-        SmartDashboardTab.putBoolean("DriveTrain", "isRunning", false);
     }
 }

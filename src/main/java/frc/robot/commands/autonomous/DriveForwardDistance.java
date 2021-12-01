@@ -1,4 +1,4 @@
-package frc.robot.commands.drivetrain;
+package frc.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
@@ -14,15 +14,8 @@ import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.drivetrain.SetDriveNeutralMode;
-import frc.robot.commands.drivetrain.SetDriveShifters;
-import frc.robot.commands.drivetrain.SetOdometry;
-import frc.robot.commands.intake.AutoControlledIntake;
-import frc.robot.commands.intake.SetIntakePiston;
-import frc.robot.commands.shooter.AutoRapidFireSetpoint;
-import frc.robot.commands.shooter.SetAndHoldRpmSetpoint;
-import frc.robot.commands.turret.AutoUseVisionCorrection;
-import frc.robot.commands.turret.SetTurretRobotRelativeAngle;
+import frc.robot.commands.SetDriveNeutralMode;
+import frc.robot.commands.SetOdometry;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.*;
 import frc.vitruvianlib.utils.TrajectoryUtils;
@@ -32,10 +25,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DriveForwardDistance extends SequentialCommandGroup {
-    public DriveForwardDistance(DriveTrain driveTrain, FieldSim fieldSim, double distance) { // Distance in meters
+    public DriveForwardDistance(DriveTrain driveTrain, double distance) { // Distance in meters
         Pose2d startPosition = new Pose2d();
         Pose2d endPosition = new Pose2d(distance, 0, new Rotation2d());
-        TrajectoryConfig configA = new TrajectoryConfig(Units.feetToMeters(2), Units.feetToMeters(1));
+        TrajectoryConfig configA = new TrajectoryConfig(Units.feetToMeters(8), Units.feetToMeters(4));
         configA.setReversed(false);
         configA.setEndVelocity(0);
         configA.addConstraint(new DifferentialDriveKinematicsConstraint(driveTrain.getDriveTrainKinematics(), configA.getMaxVelocity()));
@@ -48,9 +41,8 @@ public class DriveForwardDistance extends SequentialCommandGroup {
         var driveForwardCommand = TrajectoryUtils.generateRamseteCommand(driveTrain, trajectory);
 
         addCommands(
-                new SetDriveShifters(driveTrain, Constants.DriveConstants.inSlowGear),
-                new SetOdometry(driveTrain, fieldSim, startPosition),
-                new SetDriveNeutralMode(driveTrain,0),
+                new SetOdometry(driveTrain, startPosition),
+                new SetDriveNeutralMode(driveTrain, 0),
                 driveForwardCommand
             );
     }
